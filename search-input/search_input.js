@@ -90,6 +90,7 @@
     $.ajax({
       url: 'http://web.sou456.com/suggest?word=' + words,
       success: function (data) {
+        // console.log(data)
         if (data.length > 0 && data instanceof Array) {
           for (var i = 0; i < data.length; i++) {
             domUl += '<li>' + data[i].word + '</li>'
@@ -101,3 +102,6 @@
       }
     })
   }
+ 
+ 
+ 
