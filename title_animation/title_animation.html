@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@1.6/lib/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@1.6/lib/vant.min.js"></script>
+    <!-- element-ui -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .change_radius{
+            border-radius: 4px;
+        }
+        .change-search{
+            overflow: hidden;
+            position: relative;
+        }
+        .cancel_move {
+            position: absolute;
+            right: -100px;
+            background: #fff;
+            cursor: pointer;
+        }
+        @keyframes myfirst1 {
+            0% {
+                right: -100px;
+            }
+
+            100% {
+                right: 0;
+            }
+        }
+        @keyframes myfirst2 {
+            0% {
+                right: 0;
+            }
+
+            100% {
+                right: -100px;
+            }
+        }
+        .active1{
+            animation: myfirst1 1s linear forwards;
+        }
+        .active2 {
+            animation: myfirst2 1s linear forwards;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div  class="van-search van-search--show-action change-search" style="background: rgb(255, 255, 255);">
+            <div  class="van-search__content van-search__content--round change_radius" @click='getCancel'>
+                <div  class="van-cell van-cell--borderless van-field">
+                    <div class="van-field__left-icon"><i class="van-icon van-icon-search">
+                            <!----></i></div>
+                    <div class="van-cell__value van-cell__value--alone">
+                        <div class="van-field__body"><input type="search" placeholder="Please enter search keywords"
+                                class="van-field__control"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="van-search__action cancel_move" :class="{active1: isActive1,'active2': isActive2}" @click='getMove'>
+                    <div style="color: rgb(150, 151, 153);">Cancel</div>
+            </div>
+        </div>
+    
+        
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive1:false,
+                isActive2: false,
+            },
+            methods: {
+                getCancel(){
+                    this.isActive1 = true;
+                    this.isActive2 = false; 
+                },
+                getMove() {
+                    this.isActive1 = false;
+                    this.isActive2 = true;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
