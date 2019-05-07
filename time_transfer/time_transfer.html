@@ -15,26 +15,23 @@
 
 
     <script>
-        function add0(m) {
-            return m < 10 ? '0' + m : m
+        function getLocalTime(timestamp) {
+          // 如果以秒为单位
+          // var dateObj = new Date(timestamp * 1000);
+          // 如果以毫秒为单位
+          var dateObj = new Date(timestamp);
+          return dateObj.getFullYear() + '-' +
+            (((dateObj.getMonth() + 1) > 9) ? (dateObj.getMonth() + 1) : '0' + (dateObj.getMonth() + 1)) + '-' +
+            ((dateObj.getDate() > 9) ? dateObj.getDate() : '0' + dateObj.getDate()) + ' ' +
+            ((dateObj.getHours() > 9) ? dateObj.getHours() : '0' + dateObj.getHours()) + ':' +
+            ((dateObj.getMinutes() > 9) ? dateObj.getMinutes() : '0' + dateObj.getMinutes()) + ':' +
+            ((dateObj.getSeconds() > 9) ? dateObj.getSeconds() : '0' + dateObj.getSeconds());
         }
-        function format(shijianchuo) {
-            //shijianchuo是整数，否则要parseInt转换
-            var time = new Date(shijianchuo);
-            var y = time.getFullYear();
-            var m = time.getMonth() + 1;
-            var d = time.getDate() + 1;
-            var h = time.getHours() + 1;
-            var mm = time.getMinutes() + 1;
-            var s = time.getSeconds() + 1;
-            return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
-        }
-       
-        var date= new Date;
-        var now= date.getTime();
-        alert(format(now));
-        // format(1557035883457)
-    </script>
+        var date = new Date;
+        var now = date.getTime();
+        alert(getLocalTime(now));
+        // 自动显示当前时间
+      </script>
 </body>
 
 </html>
