@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            margin-bottom: 100px;
+            display: block;
+        }
+    </style>
+    <script src="lazy.js"></script>
+</head>
+<body>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <div>
+        <img class="my-photo" data-src="http://img01.g3wei.com/w2A6AtFZkA.jpg">
+    </div>
+    <script>
+        window.onload = checkImgs;
+        window.onscroll = throttle(checkImgs);
+    </script>
+</body>
+</html>
