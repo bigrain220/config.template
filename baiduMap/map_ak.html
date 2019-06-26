@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Hello, World</title>
+	<style type="text/css">
+		html {
+			height: 100%
+		}
+
+		body {
+			height: 100%;
+			margin: 0px;
+			padding: 0px
+		}
+
+		#container {
+			height: 100%
+		}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3W5a8rY4SLS628iVsEk05TWUPQ0GboAu">
+		//v2.0版本的引用方式：src="http://api.map.baidu.com/api?v=2.0&ak=您的密钥"
+	</script>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script type="text/javascript">
+		// var map = new BMap.Map("container");
+		// // 创建地图实例  
+		// var point = new BMap.Point(116.404, 39.915);
+		// // 创建点坐标  
+		// map.centerAndZoom(point, 15);
+		// // 初始化地图，设置中心点坐标和地图级别  
+		var map = new BMap.Map("container");
+		var point = new BMap.Point(116.404, 39.915);
+		map.centerAndZoom(point, 15);
+
+
+		// 标注
+		var marker = new BMap.Marker(point); // 创建标注    
+		map.addOverlay(marker); // 将标注添加到地图中
+
+		//控件
+		map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+		map.addControl(new BMap.NavigationControl());
+		map.addControl(new BMap.ScaleControl());
+		map.addControl(new BMap.OverviewMapControl());
+
+		// 显示交通
+		var traffic = new BMap.TrafficLayer(); // 创建交通流量图层实例      
+		map.addTileLayer(traffic); // 将图层添加到地图上
+
+		// 事件
+		// map.addEventListener("click", function (e) {
+		// 	alert(e.point.lng + ", " + e.point.lat);
+		// });
+
+		// function showInfo(e) {
+		// 	alert(e.point.lng + ", " + e.point.lat);
+		// 	//移除监听事件
+		// 	map.removeEventListener("click", showInfo);
+		// }
+		// map.addEventListener("click", showInfo);
+
+
+		// 创建地址解析器实例     
+		var myGeo = new BMap.Geocoder();
+		// 将地址解析结果显示在地图上，并调整地图视野  需要提供地址解析所在的城市（本例为“北京市”）。  
+		myGeo.getPoint("北京市最高人民检察院", function (point) {
+				if (point) {
+					map.centerAndZoom(point, 16);
+					map.addOverlay(new BMap.Marker(point));
+				}
+			},
+			"北京市");
+
+		// 鼠标点击地图获取地址	
+		var geoc = new BMap.Geocoder();
+		map.addEventListener("click", function (e) {
+			var pt = e.point;
+			geoc.getLocation(pt, function (rs) {
+				var addComp = rs.addressComponents;
+				alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp
+					.street + ", " + addComp.streetNumber);
+			});
+		});
+
+		// 驾车路线规划
+		// var driving = new BMap.DrivingRoute(map, {
+		// 	renderOptions: {
+		// 		map: map,
+		// 		panel: "results",
+		// 		autoViewport: true
+		// 	}
+		// });
+		// driving.search("中关村", "天安门");
+
+		//公交
+		// var transit = new BMap.TransitRoute(map, {
+		// 	renderOptions: {
+		// 		map: map,
+		// 		panel: "results"
+		// 	}
+		// });
+		// transit.search("中关村", "天安门");
+		//步行
+		var walk = new BMap.WalkingRoute(map, {
+			renderOptions: {
+				map: map
+			}
+		});
+		walk.search("王府井", "西单");
+	</script>
+</body>
+
+</html>
