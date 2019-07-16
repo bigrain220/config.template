@@ -1,0 +1,99 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="keywords" content="百度地图,百度地图API，百度地图自定义工具，百度地图所见即所得工具" />
+	<meta name="description" content="百度地图API自定义地图，帮助用户在可视化操作下生成百度地图" />
+	<title>test</title>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+	</script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.box {
+			width: 800px;
+			height: 800px;
+			margin: 100px auto;
+			border: 1px dashed #999;
+			overflow: hidden;
+		}
+
+		.box img {
+			float: left;
+			width: 50%;
+			height: 50%;
+		}
+		.warn{
+			width: 800px;
+			height: 800px;
+			position: absolute;
+			left:calc(50% - 401px);
+			top:100px;
+			display: none;
+			background: #fff;
+			text-align: center;
+			line-height: 800px;
+			font-size: 26px;
+			border: 1px dashed #999;
+		}
+	</style>
+
+</head>
+
+<body>
+	<div class="box">
+		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563192057356&di=5f8078308021413d3efdf4523a3ce274&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201604%2F29%2F20160429225403_dvrsx.thumb.700_0.jpeg"
+			alt="">
+		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563192057356&di=5f8078308021413d3efdf4523a3ce274&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201604%2F29%2F20160429225403_dvrsx.thumb.700_0.jpeg"
+			alt="">
+		<img class="active" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563194580328&di=43324d7a73f52466c6839fe812ee9bf3&imgtype=0&src=http%3A%2F%2Fimg5q.duitang.com%2Fuploads%2Fitem%2F201410%2F30%2F20141030095211_XdzAA.thumb.700_0.jpeg"
+			alt="">
+		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563192057356&di=5f8078308021413d3efdf4523a3ce274&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201604%2F29%2F20160429225403_dvrsx.thumb.700_0.jpeg"
+			alt="">
+	</div>
+		<div class="warn">
+				你选错啦，当前关数：1
+		</div>
+	<script>
+		var num = 2;
+		var account = 4;
+		$('.box').on('click', function (e) {
+			if (e.target.className == "active") {
+				var str = "";
+				var imgWH = 0;
+				var tem =
+					"<img class='active' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563194580328&di=43324d7a73f52466c6839fe812ee9bf3&imgtype=0&src=http%3A%2F%2Fimg5q.duitang.com%2Fuploads%2Fitem%2F201410%2F30%2F20141030095211_XdzAA.thumb.700_0.jpeg' alt=''>"
+				num += 1;
+				imgWH = 100 / num + '%';
+				account = num * num;
+				var ram = parseInt(Math.random() * (account + 1), 10);
+				for (var i = 0; i < account; i++) {
+					str +=
+						`<img  src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1563192057356&di=5f8078308021413d3efdf4523a3ce274&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201604%2F29%2F20160429225403_dvrsx.thumb.700_0.jpeg" alt="">`
+
+				}
+				$(this).html(str);
+				$(".box img").eq(ram).replaceWith(tem);
+				$(".box img").css({
+					"width": imgWH,
+					"height": imgWH
+				})
+			} else {
+				$('.warn').fadeIn("fast");
+				var step = num -1;
+				$('.warn').text("你选错啦，当前关数：" + step);
+			}
+
+		});
+		$('.warn').on('click', function (e) {
+			$('.warn').fadeOut("fast");
+		})
+	</script>
+</body>
+
+</html>
