@@ -10,3 +10,8 @@
 ### 4. **新建远程仓库 不要创建readme.md 不选它git后续有提示，根据提示执行 $ git remote add origin git@github.com:michaelliao/learngit.git**（这里填你自己的地址）
 
 ### 5. **$git add.  $git commit -m 'first commit' $ git push -u origin master**(由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令成：**$ git push origin master**)
+
+### 6. **关联远程仓库 git remote add origin https://github.com/bigrain220/video-project.git
+
+### 7. ** 创建并切换分支 git checkout -b william  合并分支 git merge william  切换分支 git checkout master
+
