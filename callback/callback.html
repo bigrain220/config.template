@@ -9,11 +9,24 @@
 </head>
 
 <body>
-    
+
     <script>
         var a = 123456;
         var b = a.toString(29);
         console.log(parseInt(b, 29))
+    </script>
+    <script>
+        function setuser(a, ...b) {
+            console.log(a, ...b);
+        }
+
+        function getuser(a, b, callback) {
+            var options = "hello" + a + b;
+            if (typeof callback === 'function') {
+                callback(a, b, options)
+            }
+        }
+        getuser('yang', 'yuhui', setuser);
     </script>
 </body>
 
