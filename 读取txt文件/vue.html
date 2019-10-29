@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <!-- element-ui -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+
+
+<body>
+    <div id="app">
+        <el-upload action="/" ref="upload" accept=".txt" :before-upload="beforeUpload"
+            :disabled="this.fileList.length !== 0" :default-file-list="this.fileList">
+            <el-button type="primary" :disabled="this.fileList.length !== 0">上传文件</el-button>
+        </el-upload>
+        <div>{{textData}}</div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    fileList:[],
+                    textData:[],
+                };
+            },
+            methods: {
+                // ---------
+                beforeUpload(file) {
+                    this.fileList = [file]
+                    console.log('选择了文件beforeUpload')
+                    // 读取数据
+                    this.read(file);
+                    return false
+                },
+                read(f) {
+                    let rd = new FileReader();
+                    rd.onload = e => {
+                        //this.readAsArrayBuffer函数内，会回调this.onload函数。在这里处理结果
+                        let cont = rd.reading({
+                            encode: 'GBK'
+                        });
+                        // console.log(cont);
+                        this.textData =cont;
+                        let arr = this.textData.split(/\r\n|[\r\n]/);
+                            console.log(arr) ;
+                    };
+                    rd.readAsBinaryString(f);
+                }
+
+
+                // -----------
+            },
+            beforeCreate() {
+                // 读取文件
+                FileReader.prototype.reading = function ({
+                    encode
+                } = pms) {
+                    let bytes = new Uint8Array(this.result); //无符号整型数组
+                    let text = new TextDecoder(encode || 'UTF-8').decode(bytes);
+                    return text;
+                };
+                /* 重写readAsBinaryString函数 */
+                FileReader.prototype.readAsBinaryString = function (f) {
+                    if (!this.onload) //如果this未重写onload函数，则创建一个公共处理方式
+                        this.onload = e => { //在this.onload函数中，完成公共处理
+                            let rs = this.reading();
+                            console.log(rs,666);
+                        };
+                    this.readAsArrayBuffer(f); //内部会回调this.onload方法
+                };
+            },
+
+        })
+    </script>
+</body>
+
+</html>
